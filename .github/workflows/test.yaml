@@ -1,0 +1,31 @@
+name: Run Tests
+
+on:
+  workflow_call:
+    inputs:
+      GITHUB_ENVIRONMENT:
+        type: string
+        description: 'Environment'
+        required: true
+        default: 'DEV'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.GITHUB_ENVIRONMENT }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ vars.CI_JAVA_VERSION }}
+          cache: maven
+
+      - name: Run Maven tests
+        run: mvn test
+
+      - name: Build application
+        run: mvn clean install
