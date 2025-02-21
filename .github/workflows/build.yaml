@@ -46,6 +46,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    environment: ${{ inputs.GITHUB_ENVIRONMENT }}
     steps:
       - name: Deploy Docker Compose to EC2
         uses: appleboy/ssh-action@v0.1.8
