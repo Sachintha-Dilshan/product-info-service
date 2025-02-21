@@ -4,21 +4,21 @@ services:
     container_name: postgres
     environment:
       POSTGRES_DB: product
-      POSTGRES_USER: eu-admin
-      POSTGRES_PASSWORD: eu-admin
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: always
 
   product-microservice:
-    image: sachinthadilshan/product:
+    image: sachinthadilshan/product:0.0.1-9d75ee23
     container_name: product-microservice
     depends_on:
       - postgres
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/product
-      SPRING_DATASOURCE_USERNAME: eu-admin
-      SPRING_DATASOURCE_PASSWORD: eu-admin
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
     ports:
       - "8080:8080"
     restart: always
